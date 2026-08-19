@@ -3,7 +3,7 @@
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: kristocopani
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
-# Source: https://lubelogger.com/ | Github: https://github.com/hargata/lubelog
+# Source: https://lubelogger.com/ | Github: https://github.com/FoxXxHater/foxco-lubelog
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -13,7 +13,7 @@ setting_up_container
 network_check
 update_os
 
-fetch_and_deploy_gh_release "lubelogger" "hargata/lubelog" "prebuild" "latest" "/opt/lubelogger" "LubeLogger*linux_x64.zip"
+fetch_and_deploy_gh_release "lubelogger" "FoxXxHater/foxco-lubelog" "prebuild" "latest" "/opt/lubelogger" "LubeLogger*linux_x64.zip"
 
 msg_info "Configuring LubeLogger"
 cd /opt/lubelogger
