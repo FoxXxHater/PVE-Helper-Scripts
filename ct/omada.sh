@@ -11,7 +11,7 @@ var_cpu="${var_cpu:-2}"
 var_ram="${var_ram:-3072}"
 var_disk="${var_disk:-8}"
 var_os="${var_os:-debian}"
-var_version="${var_version:-12}"
+var_version="${var_version:-13}"
 var_arm64="${var_arm64:-yes}"
 var_unprivileged="${var_unprivileged:-1}"
 
@@ -31,7 +31,7 @@ function update_script() {
 
   msg_info "Updating MongoDB"
   if [[ "$(arch_resolve)" == "arm64" ]] || lscpu | grep -q 'avx'; then
-    MONGO_VERSION="8.0"
+    MONGO_VERSION="8.0" setup_mongodb
   else
     msg_error "No AVX detected (CPU-Flag)! We have discontinued support for this. You are welcome to try it manually with a Debian LXC, but due to the many issues with Omada, we currently only support AVX CPUs."
     exit 10
