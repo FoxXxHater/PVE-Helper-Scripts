@@ -13,10 +13,18 @@ setting_up_container
 network_check
 update_os
 
-fetch_and_deploy_from_url "https://packages.ntop.org/apt-stable/$(get_os_info codename)/all/apt-ntop-stable.deb" ""
+NTOP_CODENAME="$(get_os_info codename)"
+case "$NTOP_CODENAME" in
+bookworm | trixie)
+  fetch_and_deploy_from_url "https://packages.ntop.org/apt/${NTOP_CODENAME}/all/apt-ntop.deb" ""
+  ;;
+*)
+  fetch_and_deploy_from_url "https://packages.ntop.org/apt-stable/${NTOP_CODENAME}/all/apt-ntop-stable.deb" ""
+  ;;
+esac
 
 msg_info "Installing ntopng"
-$STD apt update
+apt_update_safe
 $STD apt install -y ntopng
 msg_ok "Installed ntopng"
 

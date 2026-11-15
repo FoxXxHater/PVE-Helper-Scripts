@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-_CS_DEFAULT_URL="https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main"
 _cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
 source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 tteck
@@ -49,7 +48,7 @@ update_deb_based() {
     msg_ok "Stopped Service"
 
     msg_info "Updating Node-Red"
-    $STD npm install -g --unsafe-perm node-red
+    $STD npm install -g node-red
     msg_ok "Updated Node-Red"
 
     msg_info "Starting Service"
@@ -106,7 +105,7 @@ update_alpine() {
   msg_ok "Updated Node.js and npm"
 
   msg_info "Updating Node-RED"
-  $STD npm install -g --unsafe-perm node-red
+  $STD npm install -g node-red
   msg_ok "Updated Node-RED"
 
   msg_info "Restarting Node-RED"

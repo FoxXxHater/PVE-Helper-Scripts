@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
-source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
+_cs_boot="${COMMUNITY_SCRIPTS_CORE_DIR:-$(dirname "${BASH_SOURCE[0]}")/../../core}/core/build.func"
+source "$_cs_boot" 2>/dev/null || source <(curl -fsSL "${COMMUNITY_SCRIPTS_CORE_URL:-https://raw.githubusercontent.com/community-scripts/core/main}/core/build.func")
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: Kristian Skov
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
-# Source: https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-9.0&tabs=linux-ubuntu
+# Source: https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian
 
 APP="Dotnet ASP Web API"
 var_tags="${var_tags:-web}"
 var_cpu="${var_cpu:-1}"
 var_ram="${var_ram:-1024}"
 var_disk="${var_disk:-8}"
-var_os="${var_os:-ubuntu}"
-var_version="${var_version:-24.04}"
+var_os="${var_os:-debian}"
+var_version="${var_version:-13}"
 var_arm64="${var_arm64:-yes}"
-var_unprivileged="${var_unprivileged:-0}"
+var_unprivileged="${var_unprivileged:-1}"
 
 header_info "$APP"
 variables
@@ -29,8 +30,8 @@ function update_script() {
         exit
     fi
     msg_info "Updating ${APP} LXC"
-    $STD apt-get update
-    $STD apt-get -y upgrade
+    apt_update_safe
+    $STD apt -y upgrade
     msg_ok "Updated successfully!"
     exit
 }

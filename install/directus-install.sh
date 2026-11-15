@@ -13,6 +13,10 @@ setting_up_container
 network_check
 update_os
 
+msg_info "Installing Dependencies"
+$STD apt install -y build-essential
+msg_ok "Installed Dependencies"
+
 NODE_VERSION="22" setup_nodejs
 PG_VERSION="17" setup_postgresql
 PG_DB_NAME="directus" PG_DB_USER="directus" setup_postgresql_db
@@ -31,7 +35,7 @@ msg_ok "Installed Directus"
 msg_info "Configuring Directus"
 DIRECTUS_KEY=$(openssl rand -hex 32)
 DIRECTUS_SECRET=$(openssl rand -hex 32)
-DIRECTUS_ADMIN_PASSWORD=$(openssl rand -base64 18 | tr -dc 'a-zA-Z0-9' | head -c16)
+DIRECTUS_ADMIN_PASSWORD=$(random_password 16)
 cat <<EOF >/opt/directus/.env
 HOST="0.0.0.0"
 PORT=8055
